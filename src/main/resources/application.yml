@@ -32,4 +32,4 @@ logging:
     org.springframework.transaction.interceptor: TRACE
 custom:
   jwt:
-    secret: abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789 # 실전에서는 외부에 노출되면 안되는 정보
+    secretKey: abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789
