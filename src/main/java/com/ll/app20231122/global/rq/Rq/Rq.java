@@ -117,7 +117,7 @@ public class Rq {
     }
 
     private boolean isLogout() {
-        return isLogin();
+        return !isLogin();
     }
 
     private boolean isLogin() {
@@ -130,5 +130,9 @@ public class Rq {
                 .filter(authentication -> authentication.getPrincipal() instanceof SecurityUser)
                 .map(authentication -> (SecurityUser) authentication.getPrincipal())
                 .orElse(null);
+    }
+
+    public void setLogin(SecurityUser securityUser) {
+        SecurityContextHolder.getContext().setAuthentication(securityUser.genAuthentication());
     }
 }

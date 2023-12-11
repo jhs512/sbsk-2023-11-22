@@ -2,7 +2,9 @@
     let posts = $state([]);
 
     $effect(() => {
-        fetch('http://localhost:8090/api/v1/posts/mine')
+        fetch('http://localhost:8090/api/v1/posts/mine', {
+            credentials: 'include',
+        })
             .then(response => response.json())
             .then(rs => posts = rs.data.items);
     });
