@@ -8,7 +8,6 @@ import com.ll.app20231122.global.rq.Rq.Rq;
 import com.ll.app20231122.global.rsData.RsData;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,12 +33,9 @@ public class ApiV1PostsController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping("/mine")
     public RsData<GetMineResponseBody> getMine() {
         Member member = rq.getMember();
-
-        System.out.println("member.getId() : " + member.getId());
 
         List<Post> posts = postService.findByAuthor(member);
 
