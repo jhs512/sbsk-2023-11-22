@@ -2,6 +2,9 @@ package com.ll.app20231122.domain.member.member.service;
 
 import com.ll.app20231122.domain.member.member.entity.Member;
 import com.ll.app20231122.domain.member.member.repository.MemberRepository;
+import com.ll.app20231122.global.exceptions.GlobalException;
+import com.ll.app20231122.global.rsData.RsData;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,5 +35,34 @@ public class MemberService {
 
     public boolean passwordMatches(Member member, String password) {
         return passwordEncoder.matches(password, member.getPassword());
+    }
+
+    @Getter
+    public static class AuthAndMakeTokensResponseBody {
+        private String accessToken;
+        private String refreshToken;
+
+        public AuthAndMakeTokensResponseBody(String accessToken, String refreshToken) {
+            this.accessToken = accessToken;
+            this.refreshToken = refreshToken;
+        }
+    }
+
+    @Transactional
+    public RsData<AuthAndMakeTokensResponseBody> authAndMakeTokens(String username, String password) {
+        Member member = findByUsername(username)
+                .orElseThrow(() -> new GlobalException("400-1", "해당 유저가 존재하지 않습니다."));
+
+        if (!passwordMatches(member, password))
+            throw new GlobalException("400-2", "비밀번호가 일치하지 않습니다.");
+
+        String refreshToken = "refreshToken";
+        String accessToken = "accessToken";
+
+        return RsData.of(
+                "200-1",
+                "로그인 성공",
+                new AuthAndMakeTokensResponseBody(accessToken, refreshToken)
+        );
     }
 }
