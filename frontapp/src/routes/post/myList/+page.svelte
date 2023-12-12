@@ -1,12 +1,17 @@
-<script>
-    let posts = $state([]);
+<script lang="ts">
+    import createClient from "openapi-fetch";
+    import type { paths } from "$lib/types/api/v1/schema";
+    
+    const { GET } = createClient<paths>({ baseUrl: "http://localhost:8090" });
+
+    let posts: any = $state([]);
 
     $effect(() => {
-        fetch('http://localhost:8090/api/v1/posts/mine', {
-            credentials: 'include',
+        GET("/api/v1/posts/mine", {
+            credentials: "include"
+        }).then(response => {
+            posts = response.data?.data?.items;
         })
-            .then(response => response.json())
-            .then(rs => posts = rs.data.items);
     });
 </script>
 

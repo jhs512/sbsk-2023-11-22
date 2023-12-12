@@ -1,4 +1,11 @@
 <script lang="ts">
+    import "toastr/build/toastr.css"
+    import toastr from "toastr";
+    import createClient from "openapi-fetch";
+    import type { paths } from "$lib/types/api/v1/schema";
+
+    const { POST } = createClient<paths>({ baseUrl: "http://localhost:8090" });
+
     function submitLoginForm(this: HTMLFormElement) {
         const form: HTMLFormElement = this;
 
@@ -18,24 +25,21 @@
             return;
         }
 
-        fetch('http://localhost:8090/api/v1/members/login', {
-            method: 'POST',
+        POST("/api/v1/members/login", {
             credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
+            body: {
                 username: form.username.value,
                 password: form.password.value
-            })
+            }
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        .then(response => {
+            const data = response.data;
+            const error = response.error;
+
+            if ( data?.msg ) {
+                toastr.info(data?.msg);
+            }
+        });
     }
 </script>
 
