@@ -1,8 +1,8 @@
 <svelte:head>
-    <title>Home</title>
-    <meta name="description" content="홈 화면"/>
+    <title>메인</title>
+    <meta name="description" content="메인"/>
 </svelte:head>
 
-<section class="text-red-500">
-    <i class="fa-solid fa-user"></i> 메인입니다.
+<section>
+    메인
 </section>

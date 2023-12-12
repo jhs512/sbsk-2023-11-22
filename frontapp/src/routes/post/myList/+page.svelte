@@ -1,13 +1,11 @@
 <script lang="ts">
-    import createClient from "openapi-fetch";
-    import type {components, paths} from "$lib/types/api/v1/schema";
-
-    const {GET} = createClient<paths>({baseUrl: "http://localhost:8090"});
+    import rq from "$lib/rq/rq.svelte";
+    import type { components } from "$lib/types/api/v1/schema";
 
     let posts: components["schemas"]["PostDto"][] = $state([]);
 
     $effect(() => {
-        GET("/api/v1/posts/mine", {
+        rq.apiEndPoints().GET("/api/v1/posts/mine", {
             credentials: "include"
         }).then(response => {
             posts = response.data?.data?.items ?? [];
@@ -17,6 +15,10 @@
 
 <div>
     <h1>Posts</h1>
+
+    <hr>
+
+    <h2>username : {rq.getMember()?.username}</h2>
 
     <hr>
 
