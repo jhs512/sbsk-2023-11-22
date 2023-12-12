@@ -75,6 +75,10 @@ public class MemberService {
         return RsData.of("200-1", "토큰 갱신 성공", accessToken);
     }
 
+    public long count() {
+        return memberRepository.count();
+    }
+
     @AllArgsConstructor
     @Getter
     public static class AuthAndMakeTokensResponseBody {
