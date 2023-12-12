@@ -6,6 +6,8 @@ import com.ll.app20231122.domain.post.post.entity.Post;
 import com.ll.app20231122.domain.post.post.service.PostService;
 import com.ll.app20231122.global.rq.Rq.Rq;
 import com.ll.app20231122.global.rsData.RsData;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static org.springframework.http.MediaType.ALL_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -37,7 +40,8 @@ public class ApiV1PostsController {
         }
     }
 
-    @GetMapping("/mine")
+    @GetMapping(value = "/mine", consumes = ALL_VALUE)
+    @Operation(summary = "내 글 리스트", security = @SecurityRequirement(name = "bearerAuth"))
     public RsData<GetMineResponseBody> getMine() {
         Member member = rq.getMember();
 

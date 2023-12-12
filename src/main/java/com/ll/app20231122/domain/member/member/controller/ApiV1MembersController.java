@@ -4,6 +4,7 @@ import com.ll.app20231122.domain.member.member.dto.MemberDto;
 import com.ll.app20231122.domain.member.member.service.MemberService;
 import com.ll.app20231122.global.rq.Rq.Rq;
 import com.ll.app20231122.global.rsData.RsData;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -42,6 +43,7 @@ public class ApiV1MembersController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "로그인, 로그인 성공시 accessToken, refreshToken 쿠키 설정")
     public RsData<LoginResponseBody> login(
             @Valid @RequestBody LoginRequestBody body
     ) {

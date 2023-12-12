@@ -1,5 +1,6 @@
 package com.ll.app20231122.domain.home.home.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import static org.springframework.http.MediaType.TEXT_HTML_VALUE;
 public class HomeController {
     @GetMapping("/")
     @ResponseBody
+    @Operation(summary = "메인 페이지")
     public String showMain() {
         return "안녕";
     }
