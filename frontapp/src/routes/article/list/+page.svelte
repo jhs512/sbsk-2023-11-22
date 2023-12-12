@@ -1,5 +1,5 @@
-<script>
-    let articles = $state([]);
+<script lang="ts">
+    let articles: any[] = $state([]);
 
     $effect(() => {
         fetch('http://localhost:8090/api/v1/articles')

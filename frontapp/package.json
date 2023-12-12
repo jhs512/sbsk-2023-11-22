@@ -11,8 +11,7 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
-		"test:unit": "vitest",
-		"test:ts": "tsc --noEmit"
+		"test:unit": "vitest"
 	},
 	"devDependencies": {
 		"@fontsource/fira-mono": "^4.5.10",

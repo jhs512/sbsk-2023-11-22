@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
     // 사용자 입력을 위한 상태
     let username = $state('');
 
     // 리포지토리 목록을 저장할 상태
-    let repositories = $state([]);
+    let repositories: any = $state([]);
 
     // 사용자 이름을 입력하고 '데이터 가져오기' 버튼을 누를 때 실행할 함수
     async function fetchRepositories() {
