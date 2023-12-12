@@ -4,6 +4,7 @@ import com.ll.app20231122.domain.member.member.dto.MemberDto;
 import com.ll.app20231122.domain.member.member.service.MemberService;
 import com.ll.app20231122.global.rq.Rq.Rq;
 import com.ll.app20231122.global.rsData.RsData;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -15,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
-@RequestMapping("/api/v1/members")
+@RequestMapping(value = "/api/v1/members", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
+@Tag(name = "ApiV1ArticlesController", description = "게시물 CRUD 컨트롤러")
 public class ApiV1MembersController {
     private final MemberService memberService;
     private final Rq rq;
