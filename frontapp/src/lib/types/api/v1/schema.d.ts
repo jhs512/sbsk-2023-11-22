@@ -5,6 +5,10 @@
 
 
 export interface paths {
+  "/api/v1/members/logout": {
+    /** 로그아웃 */
+    post: operations["logout"];
+  };
   "/api/v1/members/login": {
     /** 로그인, 로그인 성공시 accessToken, refreshToken 쿠키 설정 */
     post: operations["login"];
@@ -27,6 +31,15 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
+    RsDataVoid: {
+      resultCode?: string;
+      /** Format: int32 */
+      statusCode?: number;
+      msg?: string;
+      data?: Record<string, never>;
+      success?: boolean;
+      fail?: boolean;
+    };
     LoginRequestBody: {
       username: string;
       password: string;
@@ -108,6 +121,17 @@ export type external = Record<string, never>;
 
 export interface operations {
 
+  /** 로그아웃 */
+  logout: {
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["RsDataVoid"];
+        };
+      };
+    };
+  };
   /** 로그인, 로그인 성공시 accessToken, refreshToken 쿠키 설정 */
   login: {
     requestBody: {

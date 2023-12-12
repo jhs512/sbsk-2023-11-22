@@ -16,12 +16,6 @@
 <div>
     <h1>Posts</h1>
 
-    <hr>
-
-    <h2>username : {rq.getMember()?.username}</h2>
-
-    <hr>
-
     <ul>
         {#each posts as post}
             <li>

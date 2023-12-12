@@ -16,8 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.http.MediaType.ALL_VALUE;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.MediaType.*;
 
 @RestController
 @RequestMapping(value = "/api/v1/members", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
@@ -81,5 +80,14 @@ public class ApiV1MembersController {
                 "내 정보 가져오기 성공",
                 new MeResponseBody(rq.getMember())
         );
+    }
+
+    @PostMapping(value = "/logout", consumes = ALL_VALUE)
+    @Operation(summary = "로그아웃")
+    public RsData<Void> logout() {
+        rq.removeCrossDomainCookie("accessToken");
+        rq.removeCrossDomainCookie("refreshToken");
+
+        return RsData.of("200", "로그아웃 성공");
     }
 }

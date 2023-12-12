@@ -32,8 +32,9 @@
             const error: any = response.error;
 
             if ( data ) {
-                rq.setLogined(data.data?.item ?? {})
                 rq.msgInfo(data?.msg ?? '로그인 성공');
+                rq.setLogined(data.data?.item ?? {});
+                rq.goto('/');
             }
             else if ( error ) {
                 rq.msgError(error.message);
