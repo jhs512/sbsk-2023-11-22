@@ -21,91 +21,86 @@ export interface paths {
     /** 내 정보 */
     get: operations["getMe"];
   };
-  "/api/v1/articles": {
-    /** 게시물 리스트 */
-    get: operations["getArticles"];
-  };
 }
 
 export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
-    RsDataVoid: {
-      resultCode?: string;
+    Empty: {
+      readme?: string;
+    };
+    RsDataEmpty: {
+      resultCode: string;
       /** Format: int32 */
-      statusCode?: number;
-      msg?: string;
-      data?: Record<string, never>;
-      success?: boolean;
-      fail?: boolean;
+      statusCode: number;
+      msg: string;
+      data: components["schemas"]["Empty"];
+      fail: boolean;
+      success: boolean;
     };
     LoginRequestBody: {
       username: string;
       password: string;
     };
     LoginResponseBody: {
-      item?: components["schemas"]["MemberDto"];
+      item: components["schemas"]["MemberDto"];
     };
     MemberDto: {
       /** Format: int64 */
-      id?: number;
+      id: number;
       /** Format: date-time */
-      createDate?: string;
+      createDate: string;
       /** Format: date-time */
-      modifyDate?: string;
-      username?: string;
-      authorities?: string[];
+      modifyDate: string;
+      username: string;
+      authorities: string[];
     };
     RsDataLoginResponseBody: {
-      resultCode?: string;
+      resultCode: string;
       /** Format: int32 */
-      statusCode?: number;
-      msg?: string;
-      data?: components["schemas"]["LoginResponseBody"];
-      success?: boolean;
-      fail?: boolean;
+      statusCode: number;
+      msg: string;
+      data: components["schemas"]["LoginResponseBody"];
+      fail: boolean;
+      success: boolean;
     };
     GetMineResponseBody: {
-      items?: components["schemas"]["PostDto"][];
+      items: components["schemas"]["PostDto"][];
     };
     PostDto: {
       /** Format: int64 */
-      id?: number;
+      id: number;
       /** Format: date-time */
-      createDate?: string;
+      createDate: string;
       /** Format: date-time */
-      modifyDate?: string;
+      modifyDate: string;
       /** Format: int64 */
-      authorId?: number;
-      authorUsername?: string;
-      title?: string;
-      body?: string;
+      authorId: number;
+      authorUsername: string;
+      title: string;
+      body: string;
     };
     RsDataGetMineResponseBody: {
-      resultCode?: string;
+      resultCode: string;
       /** Format: int32 */
-      statusCode?: number;
-      msg?: string;
-      data?: components["schemas"]["GetMineResponseBody"];
-      success?: boolean;
-      fail?: boolean;
+      statusCode: number;
+      msg: string;
+      data: components["schemas"]["GetMineResponseBody"];
+      fail: boolean;
+      success: boolean;
     };
     MeResponseBody: {
-      item?: components["schemas"]["MemberDto"];
+      item: components["schemas"]["MemberDto"];
     };
     RsDataMeResponseBody: {
-      resultCode?: string;
+      resultCode: string;
       /** Format: int32 */
-      statusCode?: number;
-      msg?: string;
-      data?: components["schemas"]["MeResponseBody"];
-      success?: boolean;
-      fail?: boolean;
-    };
-    Article: {
-      /** Format: int64 */
-      id?: number;
+      statusCode: number;
+      msg: string;
+      data: components["schemas"]["MeResponseBody"];
+      fail: boolean;
+      success: boolean;
     };
   };
   responses: never;
@@ -127,7 +122,13 @@ export interface operations {
       /** @description OK */
       200: {
         content: {
-          "application/json": components["schemas"]["RsDataVoid"];
+          "application/json": components["schemas"]["RsDataEmpty"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "*/*": components["schemas"]["RsDataEmpty"];
         };
       };
     };
@@ -146,6 +147,12 @@ export interface operations {
           "application/json": components["schemas"]["RsDataLoginResponseBody"];
         };
       };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "*/*": components["schemas"]["RsDataEmpty"];
+        };
+      };
     };
   };
   /** 내 글 리스트 */
@@ -155,6 +162,12 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["RsDataGetMineResponseBody"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "*/*": components["schemas"]["RsDataEmpty"];
         };
       };
     };
@@ -168,15 +181,10 @@ export interface operations {
           "application/json": components["schemas"]["RsDataMeResponseBody"];
         };
       };
-    };
-  };
-  /** 게시물 리스트 */
-  getArticles: {
-    responses: {
-      /** @description OK */
-      200: {
+      /** @description Internal Server Error */
+      500: {
         content: {
-          "application/json": components["schemas"]["Article"][];
+          "*/*": components["schemas"]["RsDataEmpty"];
         };
       };
     };

@@ -2,6 +2,7 @@ package com.ll.app20231122.global.rq.Rq;
 
 
 import com.ll.app20231122.domain.member.member.entity.Member;
+import com.ll.app20231122.global.exceptions.GlobalException;
 import com.ll.app20231122.global.security.SecurityUser;
 import jakarta.persistence.EntityManager;
 import jakarta.servlet.http.Cookie;
@@ -106,16 +107,6 @@ public class Rq {
         cookie.setPath("/");
         cookie.setMaxAge(0);
         resp.addCookie(cookie);
-
-        ResponseCookie responseCookie = ResponseCookie.from(name, null)
-                .path("/")
-                .maxAge(0)
-                .sameSite("None")
-                .secure(true)
-                .httpOnly(true)
-                .build();
-
-        resp.addHeader("Set-Cookie", responseCookie.toString());
     }
 
     public Member getMember() {
@@ -150,5 +141,15 @@ public class Rq {
 
     public String getHeader(String name) {
         return req.getHeader(name);
+    }
+
+    public String historyBack(GlobalException ex) {
+        req.setAttribute("failMsg", ex.getRsData().getMsg());
+
+        return "global/js";
+    }
+
+    public void setStatusCode(int statusCode) {
+        resp.setStatus(statusCode);
     }
 }

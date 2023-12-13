@@ -1,5 +1,6 @@
 package com.ll.app20231122.domain.home.home.controller;
 
+import com.ll.app20231122.global.exceptions.GlobalException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,10 @@ public class HomeController {
     @ResponseBody
     @Operation(summary = "메인 페이지")
     public String showMain() {
+        if (true) {
+            throw new GlobalException("404-1", "존재하지 않는 페이지입니다.");
+        }
+
         return "안녕";
     }
 }

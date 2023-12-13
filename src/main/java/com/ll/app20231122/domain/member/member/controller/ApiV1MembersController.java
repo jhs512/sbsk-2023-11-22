@@ -5,6 +5,7 @@ import com.ll.app20231122.domain.member.member.entity.Member;
 import com.ll.app20231122.domain.member.member.service.MemberService;
 import com.ll.app20231122.global.rq.Rq.Rq;
 import com.ll.app20231122.global.rsData.RsData;
+import com.ll.app20231122.standard.Empty;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,9 +15,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.http.MediaType.*;
+import static org.springframework.http.MediaType.ALL_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "/api/v1/members", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
@@ -30,6 +33,7 @@ public class ApiV1MembersController {
     @AllArgsConstructor
     @Getter
     public static class LoginResponseBody {
+        @NonNull
         private MemberDto item;
     }
 
@@ -65,6 +69,7 @@ public class ApiV1MembersController {
 
     @Getter
     public static class MeResponseBody {
+        @NonNull
         private MemberDto item;
 
         public MeResponseBody(Member member) {
@@ -84,7 +89,7 @@ public class ApiV1MembersController {
 
     @PostMapping(value = "/logout", consumes = ALL_VALUE)
     @Operation(summary = "로그아웃")
-    public RsData<Void> logout() {
+    public RsData<Empty> logout() {
         rq.removeCrossDomainCookie("accessToken");
         rq.removeCrossDomainCookie("refreshToken");
 
